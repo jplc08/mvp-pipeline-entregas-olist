@@ -1,0 +1,5 @@
+recurso,uso_medido,franquia_gratuita,pct_da_franquia,custo_usd_sem_franquia
+BigQuery — consultas (uma execução completa),"45,1 MB em 13 consultas",1 TiB por mês,0.004298090516385855,0.00026863065727411595
+BigQuery — armazenamento,"24,0 MB",10 GiB,0.2346544899046421,0.0004693089798092842
+Google Drive — Data Lake e evidências,"161,1 MB",15 GB (conta Google),1.1262285266666667,0.0
+Google Colab — processamento,1 sessão de CPU,uso gratuito com limites,,0.0

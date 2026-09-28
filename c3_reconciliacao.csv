@@ -1,0 +1,7 @@
+metrica,gold_no_drive,bigquery,status
+remessas,100010.0,100010.0,OK
+pedidos,98666.0,98666.0,OK
+soma_valor_produtos,13591643.7,13591643.7,OK
+soma_valor_frete,2251909.54,2251909.54,OK
+remessas_entregues,97811.0,97811.0,OK
+remessas_atrasadas,6547.0,6547.0,OK

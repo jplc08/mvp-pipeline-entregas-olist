@@ -1,0 +1,44 @@
+dimensao,verificacao,tabela,ocorrencias,base,pct,tratamento
+Unicidade,order_id duplicado,pedidos,0,99441,0.0,R07 — remover duplicatas
+Unicidade,"(order_id, order_item_id) duplicado",itens,0,112650,0.0,R07 — remover duplicatas
+Unicidade,customer_id duplicado,clientes,0,99441,0.0,R07 — remover duplicatas
+Unicidade,seller_id duplicado,vendedores,0,3095,0.0,R07 — remover duplicatas
+Unicidade,product_id duplicado,produtos,0,32951,0.0,R07 — remover duplicatas
+Unicidade,pedido com mais de uma avaliação,avaliacoes,547,98673,0.554,R05 — manter a avaliação respondida mais recentemente
+Unicidade,review_id associado a mais de um pedido,avaliacoes,789,98410,0.802,Mantido — mesma avaliação vale para pedidos comprados juntos
+Unicidade,linha de geolocalização totalmente duplicada,geolocalizacao,261831,1000163,26.179,R04 — deduplicar e agregar por CEP-prefixo
+Completude,status 'delivered' sem data de entrega ao cliente,pedidos,8,96478,0.008,R09 — não conta como entrega (flag_entregue = falso)
+Completude,status 'delivered' sem data de aprovação,pedidos,14,96478,0.015,R09 — dias_aprovacao fica nulo
+Completude,status 'delivered' sem data de postagem,pedidos,2,96478,0.002,R09 — etapas dependentes ficam nulas
+Completude,pedido sem itens,pedidos,775,99441,0.779,R08 — fora da fato (não existe remessa)
+Completude,produto sem categoria,produtos,610,32951,1.851,R06 — categoria 'sem_categoria'
+Completude,produto sem peso,produtos,2,32951,0.006,R06 — peso nulo (ignorado na soma da remessa)
+Completude,avaliação sem comentário (campo opcional),avaliacoes,58247,99224,58.703,Esperado; o texto não é carregado (R14)
+Consistência,aprovação antes da compra,pedidos,0,99281,0.0,R09 — duração negativa vira nulo + flag
+Consistência,postagem antes da aprovação,pedidos,1359,97658,1.392,R09 — duração negativa vira nulo + flag
+Consistência,entrega ao cliente antes da postagem,pedidos,23,96476,0.024,R09 — duração negativa vira nulo + flag
+Consistência,data prometida anterior à compra,pedidos,0,99441,0.0,Verificado
+Consistência,status diferente de 'delivered' com data de entrega,pedidos,6,2963,0.202,R09 — não conta como entrega
+Conformidade,UF fora das 27 unidades federativas (customer_state),clientes,0,99441,0.0,Verificado
+Conformidade,UF fora das 27 unidades federativas (seller_state),vendedores,0,3095,0.0,Verificado
+Conformidade,UF fora das 27 unidades federativas (geolocation_state),geolocalizacao,0,1000163,0.0,Verificado
+Conformidade,CEP-prefixo com menos de 5 dígitos (customer_zip_code_prefix),clientes,0,99441,0.0,R03 — completar com zeros à esquerda
+Conformidade,CEP-prefixo com menos de 5 dígitos (seller_zip_code_prefix),vendedores,0,3095,0.0,R03 — completar com zeros à esquerda
+Conformidade,CEP-prefixo com menos de 5 dígitos (geolocation_zip_code_prefix),geolocalizacao,0,1000163,0.0,R03 — completar com zeros à esquerda
+Conformidade,nota de avaliação fora de 1 a 5,avaliacoes,0,99224,0.0,Verificado
+Conformidade,categoria sem tradução,produtos,13,32341,0.04,R06 — usar o nome original
+Conformidade,grafias redundantes de cidade — acento/caixa (customer_city),clientes,0,4119,0.0,R02 — padronizar texto
+Conformidade,grafias redundantes de cidade — acento/caixa (seller_city),vendedores,2,611,0.327,R02 — padronizar texto
+Conformidade,grafias redundantes de cidade — acento/caixa (geolocation_city),geolocalizacao,2043,8010,25.506,R02 — padronizar texto
+Acurácia,coordenada fora do território brasileiro,geolocalizacao,42,1000163,0.004,R04 — descartar o ponto
+Acurácia,peso do produto igual a zero,produtos,4,32951,0.012,R06 — peso zero vira nulo
+Acurácia,preço menor ou igual a zero,itens,0,112650,0.0,Verificado
+Acurácia,frete negativo,itens,0,112650,0.0,Verificado
+Acurácia,entrega mais de 90 dias após a compra (valor extremo),pedidos,76,96476,0.079,Mantido — plausível; análises usam também medianas e percentis
+Integridade,item com pedido inexistente,itens,0,112650,0.0,Verificado
+Integridade,item com produto inexistente,itens,0,112650,0.0,Verificado
+Integridade,item com vendedor inexistente,itens,0,112650,0.0,Verificado
+Integridade,pedido com cliente inexistente,pedidos,0,99441,0.0,Verificado
+Integridade,avaliação de pedido inexistente,avaliacoes,0,99224,0.0,Verificado
+Integridade,CEP de cliente sem geolocalização,clientes,278,99441,0.28,R12 — distância nula nessas remessas
+Integridade,CEP de vendedor sem geolocalização,vendedores,7,3095,0.226,R12 — distância nula nessas remessas

@@ -1,0 +1,11 @@
+verificacao,ocorrencias,status
+"Chave duplicada na fato (id_pedido, sk_vendedor)",0,OK
+Chave duplicada em dim_tempo,0,OK
+Chave duplicada em dim_localidade,0,OK
+Chave duplicada em dim_vendedor,0,OK
+FK sem correspondência: sk_vendedor,0,OK
+FK sem correspondência: sk_localidade_origem,0,OK
+FK sem correspondência: sk_localidade_destino,0,OK
+FK sem correspondência: sk_data_compra,0,OK
+FK sem correspondência: sk_data_entrega_prevista,0,OK
+FK sem correspondência: sk_data_entrega (quando preenchida),0,OK

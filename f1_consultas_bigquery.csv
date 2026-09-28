@@ -1,0 +1,14 @@
+consulta,bytes_processados,linhas_retornadas
+c2_integridade_referencial,8335060,10
+c3_reconciliacao,5198321,1
+p1_taxa_atraso_mensal,2594917,20
+p2_atraso_por_uf,3703769,27
+p3_atraso_por_distancia,5164893,5
+p3_base_regressao,3763025,97031
+p3_atraso_por_distancia,0,5
+p3_base_regressao,0,97031
+p4_etapas_por_grupo,3467165,2
+p4_atraso_por_postagem,1104101,2
+p4_atraso_por_vendedor,2060755,2945
+p5_nota_por_faixa_de_atraso,5884094,7
+p5_base_pedidos,5981905,95560

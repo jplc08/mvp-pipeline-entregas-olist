@@ -1,0 +1,10 @@
+tabela,linhas_drive,linhas_bigquery,tamanho_mb,segundos,status
+dim_tempo,800,800,0.067,3.9,OK
+dim_localidade,15078,15078,0.806,4.1,OK
+dim_vendedor,3095,3095,0.173,4.7,OK
+fato_entrega,100010,100010,22.956,4.3,OK
+meta_catalogo_dados,54,54,0.01,4.3,OK
+meta_log_transformacoes,39,39,0.004,3.5,OK
+meta_coleta,9,9,0.002,3.3,OK
+meta_perfil_qualidade,52,52,0.006,3.7,OK
+meta_verificacoes_qualidade,43,43,0.005,4.1,OK

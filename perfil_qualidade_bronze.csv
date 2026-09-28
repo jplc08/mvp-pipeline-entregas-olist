@@ -1,0 +1,53 @@
+tabela,atributo,tipo_esperado,linhas,nulos,pct_nulos,distintos,pct_conformes,minimo,maximo,valores_mais_frequentes
+pedidos,order_id,id,99441,0,0.0,99441,100.0,32 caract.,32 caract.,
+pedidos,customer_id,id,99441,0,0.0,99441,100.0,32 caract.,32 caract.,
+pedidos,order_status,categoria,99441,0,0.0,8,100.0,7 caract.,11 caract.,delivered (96.478); shipped (1.107); canceled (625); unavailable (609)
+pedidos,order_purchase_timestamp,timestamp,99441,0,0.0,98875,100.0,2016-09-04 21:15:19,2018-10-17 17:30:18,
+pedidos,order_approved_at,timestamp,99441,160,0.16,90733,100.0,2016-09-15 12:16:38,2018-09-03 17:40:06,
+pedidos,order_delivered_carrier_date,timestamp,99441,1783,1.79,81018,100.0,2016-10-08 10:34:01,2018-09-11 19:48:28,
+pedidos,order_delivered_customer_date,timestamp,99441,2965,2.98,95664,100.0,2016-10-11 13:46:32,2018-10-17 13:22:46,
+pedidos,order_estimated_delivery_date,timestamp,99441,0,0.0,459,100.0,2016-09-30 00:00:00,2018-11-12 00:00:00,
+itens,order_id,id,112650,0,0.0,98666,100.0,32 caract.,32 caract.,
+itens,order_item_id,inteiro,112650,0,0.0,21,100.0,1,21,1 (98.666); 2 (9.803); 3 (2.287); 4 (965)
+itens,product_id,id,112650,0,0.0,32951,100.0,32 caract.,32 caract.,
+itens,seller_id,id,112650,0,0.0,3095,100.0,32 caract.,32 caract.,
+itens,shipping_limit_date,timestamp,112650,0,0.0,93318,100.0,2016-09-19 00:15:34,2020-04-09 22:35:08,
+itens,price,decimal,112650,0,0.0,5968,100.0,"0,85","6.735,00",
+itens,freight_value,decimal,112650,0,0.0,6999,100.0,"0,00","409,68",
+clientes,customer_id,id,99441,0,0.0,99441,100.0,32 caract.,32 caract.,
+clientes,customer_unique_id,id,99441,0,0.0,96096,100.0,32 caract.,32 caract.,
+clientes,customer_zip_code_prefix,cep,99441,0,0.0,14994,100.0,5 caract.,5 caract.,
+clientes,customer_city,texto,99441,0,0.0,4119,100.0,3 caract.,32 caract.,
+clientes,customer_state,uf,99441,0,0.0,27,100.0,,,SP (41.746); RJ (12.852); MG (11.635); RS (5.466)
+vendedores,seller_id,id,3095,0,0.0,3095,100.0,32 caract.,32 caract.,
+vendedores,seller_zip_code_prefix,cep,3095,0,0.0,2246,100.0,5 caract.,5 caract.,
+vendedores,seller_city,texto,3095,0,0.0,611,100.0,2 caract.,40 caract.,
+vendedores,seller_state,uf,3095,0,0.0,23,100.0,,,SP (1.849); PR (349); MG (244); SC (190)
+produtos,product_id,id,32951,0,0.0,32951,100.0,32 caract.,32 caract.,
+produtos,product_category_name,categoria,32951,610,1.85,73,100.0,3 caract.,46 caract.,cama_mesa_banho (3.029); esporte_lazer (2.867); moveis_decoracao (2.657); beleza_saude (2.444)
+produtos,product_name_lenght,inteiro,32951,610,1.85,66,100.0,5,76,
+produtos,product_description_lenght,inteiro,32951,610,1.85,2960,100.0,4,3.992,
+produtos,product_photos_qty,inteiro,32951,610,1.85,19,100.0,1,20,1 (16.489); 2 (6.263); 3 (3.860); 4 (2.428)
+produtos,product_weight_g,decimal,32951,2,0.01,2204,100.0,"0,00","40.425,00",
+produtos,product_length_cm,decimal,32951,2,0.01,99,100.0,"7,00","105,00",
+produtos,product_height_cm,decimal,32951,2,0.01,102,100.0,"2,00","105,00",
+produtos,product_width_cm,decimal,32951,2,0.01,95,100.0,"6,00","118,00",
+avaliacoes,review_id,id,99224,0,0.0,98410,100.0,32 caract.,32 caract.,
+avaliacoes,order_id,id,99224,0,0.0,98673,100.0,32 caract.,32 caract.,
+avaliacoes,review_score,inteiro,99224,0,0.0,5,100.0,1,5,5 (57.328); 4 (19.142); 1 (11.424); 3 (8.179)
+avaliacoes,review_comment_title,texto,99224,87656,88.34,4527,100.0,1 caract.,26 caract.,
+avaliacoes,review_comment_message,texto,99224,58247,58.7,36159,100.0,1 caract.,208 caract.,
+avaliacoes,review_creation_date,timestamp,99224,0,0.0,636,100.0,2016-10-02 00:00:00,2018-08-31 00:00:00,
+avaliacoes,review_answer_timestamp,timestamp,99224,0,0.0,98248,100.0,2016-10-07 18:32:28,2018-10-29 12:27:35,
+pagamentos,order_id,id,103886,0,0.0,99440,100.0,32 caract.,32 caract.,
+pagamentos,payment_sequential,inteiro,103886,0,0.0,29,100.0,1,29,1 (99.360); 2 (3.039); 3 (581); 4 (278)
+pagamentos,payment_type,categoria,103886,0,0.0,5,100.0,6 caract.,11 caract.,credit_card (76.795); boleto (19.784); voucher (5.775); debit_card (1.529)
+pagamentos,payment_installments,inteiro,103886,0,0.0,24,100.0,0,24,1 (52.546); 2 (12.413); 3 (10.461); 4 (7.098)
+pagamentos,payment_value,decimal,103886,0,0.0,29077,100.0,"0,00","13.664,08",
+geolocalizacao,geolocation_zip_code_prefix,cep,1000163,0,0.0,19015,100.0,5 caract.,5 caract.,
+geolocalizacao,geolocation_lat,decimal,1000163,0,0.0,717372,100.0,"-36,61","45,07",
+geolocalizacao,geolocation_lng,decimal,1000163,0,0.0,717615,100.0,"-101,47","121,11",
+geolocalizacao,geolocation_city,texto,1000163,0,0.0,8011,100.0,2 caract.,38 caract.,
+geolocalizacao,geolocation_state,uf,1000163,0,0.0,27,100.0,,,SP (404.268); MG (126.336); RJ (121.169); RS (61.851)
+categorias,product_category_name,categoria,71,0,0.0,71,100.0,3 caract.,46 caract.,beleza_saude (1); informatica_acessorios (1); automotivo (1); cama_mesa_banho (1)
+categorias,product_category_name_english,categoria,71,0,0.0,71,100.0,3 caract.,39 caract.,health_beauty (1); computers_accessories (1); auto (1); bed_bath_table (1)

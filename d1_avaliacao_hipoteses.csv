@@ -1,0 +1,5 @@
+hipotese,criterio,resultado,veredito
+H2 — a promessa não compensa as diferenças regionais,maior/menor taxa de atraso por UF (≥ 300 entregas) ≥ 3×,"5,3× (AL 21,4% × PR 4,0%)",Confirmada
+"H3 — a distância aumenta o risco, mesmo com controles","taxa ≥ 2.000 km / taxa até 100 km ≥ 1,5× e OR ajustado (+500 km) com IC 95% > 1","razão 2,72×; OR ajustado 1,18 (IC 1,14 a 1,22)",Confirmada
+H4 — parte relevante do atraso nasce no vendedor,"taxa com postagem fora do prazo ≥ 2× taxa no prazo, p < 0,05","21,0% × 5,3% = 3,9× (p < 0,001); 27,7% dos atrasos",Confirmada
+H5 — o atraso derruba a satisfação,"nota média no prazo − nota média atrasado ≥ 1 ponto, p < 0,05","4,29 − 2,27 = 2,02 (p < 0,001)",Confirmada

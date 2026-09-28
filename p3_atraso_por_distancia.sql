@@ -12,10 +12,10 @@ WITH base AS (
       WHEN f.distancia_km < 2000 THEN '4. 1.000 a 2.000 km'
       ELSE '5. 2.000 km ou mais'
     END AS faixa_distancia
-  FROM `seu-projeto-gcp.olist_dw`.fato_entrega AS f
-  JOIN `seu-projeto-gcp.olist_dw`.dim_tempo AS t ON f.sk_data_compra = t.sk_data
-  JOIN `seu-projeto-gcp.olist_dw`.dim_localidade AS o ON f.sk_localidade_origem = o.sk_localidade
-  JOIN `seu-projeto-gcp.olist_dw`.dim_localidade AS d ON f.sk_localidade_destino = d.sk_localidade
+  FROM `mvp-olist-entregas.olist_dw`.fato_entrega AS f
+  JOIN `mvp-olist-entregas.olist_dw`.dim_tempo AS t ON f.sk_data_compra = t.sk_data
+  JOIN `mvp-olist-entregas.olist_dw`.dim_localidade AS o ON f.sk_localidade_origem = o.sk_localidade
+  JOIN `mvp-olist-entregas.olist_dw`.dim_localidade AS d ON f.sk_localidade_destino = d.sk_localidade
   WHERE f.flag_entregue AND t.periodo_analise AND f.distancia_km IS NOT NULL
 )
 SELECT

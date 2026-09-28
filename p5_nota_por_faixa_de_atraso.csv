@@ -1,0 +1,8 @@
+faixa,pedidos,nota_media,pct_negativas,pct_nota_5
+1. 15+ dias antes,34526,4.32,9.0,64.32
+2. 8 a 14 dias antes,36147,4.31,8.9,63.03
+3. 1 a 7 dias antes,17229,4.2,10.23,57.5
+4. no dia prometido,1280,4.03,12.42,50.63
+5. 1 a 7 dias de atraso,3599,2.71,49.4,23.9
+6. 8 a 14 dias de atraso,1446,1.67,80.15,6.85
+7. 15+ dias de atraso,1333,1.72,78.32,7.2

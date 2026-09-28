@@ -1,0 +1,40 @@
+regra,camada,tabela,descricao,linhas_afetadas,linhas_total,executado_em
+R01,silver,pedidos,Tipagem explícita (contagem = valores não conversíveis),0,99441,2026-09-28 18:15:02
+R01,silver,itens,Tipagem explícita (contagem = valores não conversíveis),0,112650,2026-09-28 18:15:02
+R01,silver,clientes,Tipagem explícita (contagem = valores não conversíveis),0,99441,2026-09-28 18:15:02
+R01,silver,vendedores,Tipagem explícita (contagem = valores não conversíveis),0,3095,2026-09-28 18:15:02
+R01,silver,produtos,Tipagem explícita (contagem = valores não conversíveis),0,32951,2026-09-28 18:15:02
+R01,silver,avaliacoes,Tipagem explícita (contagem = valores não conversíveis),0,99224,2026-09-28 18:15:02
+R01,silver,pagamentos,Tipagem explícita (contagem = valores não conversíveis),0,103886,2026-09-28 18:15:02
+R01,silver,geolocalizacao,Tipagem explícita (contagem = valores não conversíveis),0,1000163,2026-09-28 18:15:02
+R01,silver,categorias,Tipagem explícita (contagem = valores não conversíveis),0,71,2026-09-28 18:15:02
+R07,silver,pedidos,Remoção de duplicatas pela chave order_id,0,99441,2026-09-28 18:15:02
+R07,silver,itens,"Remoção de duplicatas pela chave ['order_id', 'order_item_id']",0,112650,2026-09-28 18:15:02
+R07,silver,clientes,Remoção de duplicatas pela chave customer_id,0,99441,2026-09-28 18:15:02
+R14,silver,clientes,Minimização (LGPD): customer_unique_id descartado,99441,99441,2026-09-28 18:15:02
+R03,silver,clientes,CEP-prefixo com 5 dígitos em customer_zip_code_prefix,0,99441,2026-09-28 18:15:02
+R02,silver,clientes,Padronização de texto em customer_city,0,99441,2026-09-28 18:15:02
+R07,silver,vendedores,Remoção de duplicatas pela chave seller_id,0,3095,2026-09-28 18:15:02
+R03,silver,vendedores,CEP-prefixo com 5 dígitos em seller_zip_code_prefix,0,3095,2026-09-28 18:15:02
+R02,silver,vendedores,Padronização de texto em seller_city,3,3095,2026-09-28 18:15:02
+R07,silver,produtos,Remoção de duplicatas pela chave product_id,0,32951,2026-09-28 18:15:02
+R06,silver,produtos,Colunas renomeadas (corrige 'lenght' → comprimento),0,32951,2026-09-28 18:15:02
+R06,silver,produtos,Categoria nula → 'sem_categoria',610,32951,2026-09-28 18:15:02
+R06,silver,produtos,Peso igual a zero → nulo,4,32951,2026-09-28 18:15:02
+R06,silver,produtos,Categoria sem tradução (inclui 'sem_categoria') → nome original,623,32951,2026-09-28 18:15:02
+R05,silver,avaliacoes,Remoção de linhas totalmente duplicadas,0,99224,2026-09-28 18:15:02
+R05,silver,avaliacoes,Uma avaliação por pedido (a respondida mais recentemente),551,99224,2026-09-28 18:15:02
+R14,silver,avaliacoes,Minimização (LGPD): título e texto dos comentários descartados,98673,98673,2026-09-28 18:15:02
+R03,silver,geolocalizacao,CEP-prefixo com 5 dígitos em geolocation_zip_code_prefix,0,1000163,2026-09-28 18:15:02
+R04,silver,geolocalizacao,Remoção de linhas duplicadas,261831,1000163,2026-09-28 18:15:02
+R04,silver,geolocalizacao,Descarte de coordenadas fora do território brasileiro,33,738332,2026-09-28 18:15:02
+R04,silver,geolocalizacao,Agregação por CEP-prefixo (centroide = mediana),719289,738299,2026-09-28 18:15:02
+R15,gold,dim_localidade,Chave substituta por CEP-prefixo (cidade/UF = moda),15078,15078,2026-09-28 18:15:02
+R16,gold,dim_vendedor,Porte do vendedor por volume de pedidos,3095,3095,2026-09-28 18:15:02
+R13,gold,dim_tempo,Janela de análise marcada em periodo_analise,608,800,2026-09-28 18:15:02
+R08,gold,fato_entrega,Itens agregados em remessas (pedido × vendedor); 775 pedidos sem itens ficam fora,12640,112650,2026-09-28 18:15:02
+R09,gold,fato_entrega,Durações negativas (etapas fora de ordem) → nulo + flag,1415,100010,2026-09-28 18:15:02
+R09,gold,fato_entrega,Remessas sem status 'delivered' ou sem data de entrega não contam como entregues,2199,100010,2026-09-28 18:15:02
+R10,gold,fato_entrega,Remessas entregues depois da data prometida,6547,97811,2026-09-28 18:15:02
+R11,gold,fato_entrega,Remessas postadas depois do prazo-limite,8913,99000,2026-09-28 18:15:02
+R12,gold,fato_entrega,Distância nula por falta de centroide do CEP,500,100010,2026-09-28 18:15:02
