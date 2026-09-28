@@ -1,0 +1,55 @@
+Tabela,Atributo,Tipo (BigQuery),Tipo lógico,Descrição,Domínio,Obrigatório,Significado do nulo,Linhagem
+dim_tempo,sk_data,INT64,numérico,"Chave substituta da data, no formato AAAAMMDD (PK).",20160901 a 20181231,Sim,Não admite nulo.,Gerada a partir de `data` (R15).
+dim_tempo,data,DATE,data,Data do calendário.,2016-09-01 a 2018-12-31,Sim,Não admite nulo.,"Calendário contínuo entre a menor e a maior data de compra, prometida ou de entrega em olist_orders_dataset."
+dim_tempo,ano,INT64,numérico,Ano civil.,2016 a 2018,Sim,Não admite nulo.,Derivado de `data`.
+dim_tempo,trimestre,INT64,numérico,Trimestre do ano.,1 a 4,Sim,Não admite nulo.,Derivado de `data`.
+dim_tempo,mes,INT64,numérico,Mês do ano.,1 a 12,Sim,Não admite nulo.,Derivado de `data`.
+dim_tempo,nome_mes,STRING,categórico,Nome do mês em português.,"janeiro, fevereiro, março, abril, maio, junho, julho, agosto, setembro, outubro, novembro, dezembro",Sim,Não admite nulo.,Derivado de `data`.
+dim_tempo,ano_mes,STRING,categórico,Ano e mês no formato AAAA-MM (agrupamento mensal).,Padrão ^\d{4}-(0[1-9]|1[0-2])$,Sim,Não admite nulo.,Derivado de `data`.
+dim_tempo,dia,INT64,numérico,Dia do mês.,1 a 31,Sim,Não admite nulo.,Derivado de `data`.
+dim_tempo,dia_semana,INT64,numérico,Dia da semana ISO 8601 (1 = segunda-feira … 7 = domingo).,1 a 7,Sim,Não admite nulo.,Derivado de `data`.
+dim_tempo,nome_dia_semana,STRING,categórico,Nome do dia da semana em português.,"segunda-feira, terça-feira, quarta-feira, quinta-feira, sexta-feira, sábado, domingo",Sim,Não admite nulo.,Derivado de `data`.
+dim_tempo,fim_de_semana,BOOL,booleano,Verdadeiro para sábado e domingo.,"verdadeiro, falso",Sim,Não admite nulo.,Derivado de `dia_semana`.
+dim_tempo,periodo_analise,BOOL,booleano,Verdadeiro se a data está na janela de análise (jan/2017 a ago/2018).,"verdadeiro, falso",Sim,Não admite nulo.,Regra R13 (justificada pela análise de atualidade).
+dim_localidade,sk_localidade,INT64,numérico,Chave substituta da localidade (PK).,1 a 99999,Sim,Não admite nulo.,Sequencial (R15).
+dim_localidade,cep_prefixo,STRING,categórico,Cinco primeiros dígitos do CEP (chave natural).,Padrão ^\d{5}$,Sim,Não admite nulo.,"customer_zip_code_prefix ∪ seller_zip_code_prefix, com zeros à esquerda (R03)."
+dim_localidade,cidade,STRING,texto,"Município, em minúsculas e sem acentos; quando o CEP-prefixo abrange mais de uma cidade, a mais frequente.",Texto livre,Sim,Não admite nulo.,customer_city / seller_city padronizados (R02); moda por CEP-prefixo.
+dim_localidade,uf,STRING,categórico,Unidade federativa (sigla).,"AC, AL, AM, AP, BA, CE, DF, ES, GO, MA, MG, MS, MT, PA, PB, PE, PI, PR, RJ, RN, RO, RR, RS, SC, SE, SP, TO",Sim,Não admite nulo.,customer_state / seller_state; moda por CEP-prefixo.
+dim_localidade,regiao,STRING,categórico,Grande região do IBGE.,"Norte, Nordeste, Centro-Oeste, Sudeste, Sul",Sim,Não admite nulo.,Derivada da UF (divisão regional do IBGE).
+dim_localidade,latitude,FLOAT64,numérico,Latitude do centroide do CEP-prefixo (graus decimais).,-33.75 a 5.3,Não,CEP-prefixo sem geolocalização válida na origem.,Mediana de geolocation_lat após deduplicação e descarte de pontos fora do Brasil (R04).
+dim_localidade,longitude,FLOAT64,numérico,Longitude do centroide do CEP-prefixo (graus decimais).,-73.99 a -34.79,Não,CEP-prefixo sem geolocalização válida na origem.,Mediana de geolocation_lng após deduplicação e descarte de pontos fora do Brasil (R04).
+dim_vendedor,sk_vendedor,INT64,numérico,Chave substituta do vendedor (PK).,1 a 99999,Sim,Não admite nulo.,Sequencial (R15).
+dim_vendedor,id_vendedor,STRING,texto,Identificador anonimizado do vendedor (hash de 32 caracteres).,Padrão ^[0-9a-f]{32}$,Sim,Não admite nulo.,olist_sellers_dataset.seller_id.
+dim_vendedor,qtd_pedidos,INT64,numérico,Quantidade de pedidos distintos do vendedor em toda a base.,0 a 5000,Sim,Não admite nulo.,Contagem distinta de order_id por seller_id em olist_order_items_dataset.
+dim_vendedor,porte_vendedor,STRING,categórico,"Porte pelo volume de pedidos: pequeno (< 10), médio (10 a 99), grande (≥ 100).","pequeno, médio, grande",Sim,Não admite nulo.,Derivado de `qtd_pedidos` (R16).
+fato_entrega,id_pedido,STRING,texto,Identificador anonimizado do pedido (dimensão degenerada). Com sk_vendedor forma a chave da remessa.,Padrão ^[0-9a-f]{32}$,Sim,Não admite nulo.,olist_orders_dataset.order_id.
+fato_entrega,sk_vendedor,INT64,numérico,Vendedor responsável pela remessa (FK → dim_vendedor).,1 a 99999,Sim,Não admite nulo.,seller_id de olist_order_items_dataset → dim_vendedor (R08).
+fato_entrega,sk_localidade_origem,INT64,numérico,"Localidade do vendedor (FK → dim_localidade, papel 'origem').",1 a 99999,Sim,Não admite nulo.,seller_zip_code_prefix → dim_localidade.
+fato_entrega,sk_localidade_destino,INT64,numérico,"Localidade do cliente (FK → dim_localidade, papel 'destino').",1 a 99999,Sim,Não admite nulo.,customer_zip_code_prefix → dim_localidade.
+fato_entrega,sk_data_compra,INT64,numérico,Data da compra (FK → dim_tempo).,20160901 a 20181231,Sim,Não admite nulo.,"order_purchase_timestamp (R01, R15)."
+fato_entrega,sk_data_entrega_prevista,INT64,numérico,Data de entrega prometida ao cliente (FK → dim_tempo).,20160901 a 20181231,Sim,Não admite nulo.,"order_estimated_delivery_date (R01, R15)."
+fato_entrega,sk_data_entrega,INT64,numérico,Data da entrega ao cliente (FK → dim_tempo).,20160901 a 20181231,Não,Remessa ainda não entregue ou sem data de entrega registrada.,"order_delivered_customer_date (R01, R15)."
+fato_entrega,status_pedido,STRING,categórico,Status do pedido na data da extração.,"delivered, shipped, canceled, unavailable, invoiced, processing, created, approved",Sim,Não admite nulo.,olist_orders_dataset.order_status.
+fato_entrega,data_hora_compra,DATETIME,data,Data e hora da compra.,2016-09-01 a 2018-12-31,Sim,Não admite nulo.,order_purchase_timestamp (R01).
+fato_entrega,data_hora_aprovacao,DATETIME,data,Data e hora da aprovação do pagamento.,2016-09-01 a 2018-12-31,Não,Pagamento não aprovado (pedido cancelado ou em aberto).,order_approved_at (R01).
+fato_entrega,data_hora_postagem,DATETIME,data,Data e hora em que o vendedor entregou o pacote à transportadora.,2016-09-01 a 2018-12-31,Não,Pacote ainda não postado.,order_delivered_carrier_date (R01).
+fato_entrega,data_hora_entrega,DATETIME,data,Data e hora da entrega ao cliente.,2016-09-01 a 2018-12-31,Não,Remessa ainda não entregue.,order_delivered_customer_date (R01).
+fato_entrega,data_limite_postagem,DATETIME,data,Prazo-limite para o vendedor postar a remessa (o maior entre os itens).,2016-09-01 a 2018-12-31,Sim,Não admite nulo.,MAX(shipping_limit_date) dos itens da remessa (R08).
+fato_entrega,data_entrega_prevista,DATE,data,Data de entrega prometida ao cliente no momento da compra.,2016-09-01 a 2018-12-31,Sim,Não admite nulo.,order_estimated_delivery_date (R01).
+fato_entrega,qtd_itens,INT64,numérico,Quantidade de itens na remessa.,1 a 30,Sim,Não admite nulo.,COUNT(order_item_id) por pedido × vendedor (R08).
+fato_entrega,valor_produtos,FLOAT64,numérico,Soma do preço dos itens da remessa (R$).,0.01 a 15000,Sim,Não admite nulo.,SUM(price) por pedido × vendedor (R08).
+fato_entrega,valor_frete,FLOAT64,numérico,Soma do frete dos itens da remessa (R$).,0 a 2000,Sim,Não admite nulo.,SUM(freight_value) por pedido × vendedor (R08).
+fato_entrega,peso_total_kg,FLOAT64,numérico,Peso total dos itens da remessa (kg).,0.001 a 500,Não,Nenhum item da remessa tem peso válido.,"SUM(product_weight_g) / 1000, com peso zero tratado como nulo (R06, R08)."
+fato_entrega,distancia_km,FLOAT64,numérico,Distância em linha reta entre os centroides dos CEPs de origem e destino (km).,0 a 4500,Não,Falta o centroide do CEP de origem ou de destino.,Haversine entre latitude/longitude da dim_localidade (R12).
+fato_entrega,dias_aprovacao,FLOAT64,numérico,Dias entre a compra e a aprovação do pagamento.,0 a 60,Não,Data ausente ou etapa fora de ordem (R09).,data_hora_aprovacao − data_hora_compra (R09).
+fato_entrega,dias_preparacao,FLOAT64,numérico,Dias entre a aprovação e a postagem (etapa do vendedor).,0 a 180,Não,Data ausente ou etapa fora de ordem (R09).,data_hora_postagem − data_hora_aprovacao (R09).
+fato_entrega,dias_transporte,FLOAT64,numérico,Dias entre a postagem e a entrega (etapa da transportadora).,0 a 210,Não,Data ausente ou etapa fora de ordem (R09).,data_hora_entrega − data_hora_postagem (R09).
+fato_entrega,dias_entrega,FLOAT64,numérico,Dias entre a compra e a entrega (prazo total realizado).,0 a 210,Não,Remessa não entregue.,data_hora_entrega − data_hora_compra (R09).
+fato_entrega,dias_prazo_prometido,INT64,numérico,Dias corridos entre a data da compra e a data prometida.,0 a 160,Sim,Não admite nulo.,data_entrega_prevista − data da compra.
+fato_entrega,dias_atraso,INT64,numérico,Dias corridos entre a data prometida e a data da entrega (positivo = atraso; negativo = antecipação).,-150 a 190,Não,Remessa não entregue.,data da entrega − data_entrega_prevista (R10).
+fato_entrega,nota_avaliacao,INT64,numérico,Nota dada pelo cliente ao pedido (1 a 5 estrelas).,1 a 5,Não,Pedido sem avaliação.,review_score da avaliação mais recente do pedido (R05).
+fato_entrega,flag_entregue,BOOL,booleano,Verdadeiro se o status é 'delivered' e há data de entrega.,"verdadeiro, falso",Sim,Não admite nulo.,Regra R09.
+fato_entrega,flag_atraso,BOOL,booleano,Verdadeiro se a remessa foi entregue depois da data prometida.,"verdadeiro, falso",Não,Remessa não entregue.,dias_atraso > 0 (R10).
+fato_entrega,flag_postagem_fora_prazo,BOOL,booleano,Verdadeiro se o vendedor postou depois do prazo-limite de postagem.,"verdadeiro, falso",Não,Remessa não postada.,data_hora_postagem > data_limite_postagem (R11).
+fato_entrega,flag_inconsistencia_temporal,BOOL,booleano,Verdadeiro se alguma etapa tinha datas fora de ordem (duração negativa).,"verdadeiro, falso",Sim,Não admite nulo.,Regra R09.
+fato_entrega,flag_multivendedor,BOOL,booleano,Verdadeiro se o pedido tem itens de mais de um vendedor (mais de uma remessa).,"verdadeiro, falso",Sim,Não admite nulo.,Contagem de vendedores por order_id (R08).

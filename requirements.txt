@@ -1,0 +1,11 @@
+# Ambiente de referência: Google Colab (todas as bibliotecas abaixo já vêm instaladas, exceto kagglehub em versões antigas).
+# Para executar fora do Colab, é preciso substituir google.colab.drive/auth por credenciais locais do Google Cloud.
+kagglehub>=0.3
+pandas>=2.0
+numpy>=1.24
+pyarrow>=14
+matplotlib>=3.7
+scipy>=1.10
+statsmodels>=0.14
+google-cloud-bigquery>=3.10
+db-dtypes>=1.1

@@ -1,0 +1,17 @@
+# Dados brutos e intermediários não são versionados (licença CC BY-NC-SA 4.0 e tamanho)
+*.parquet
+data/
+dados/
+bronze/
+silver/
+gold/
+olist_*_dataset.csv
+product_category_name_translation.csv
+*.zip
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+.env
